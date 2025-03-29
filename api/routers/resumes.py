@@ -6,18 +6,16 @@ from typing import List, Optional
 import os
 from bson import ObjectId
 
-from database.models.resume import Resume, Education, Experience
-from schemas.resume import ResumeSchema, EducationSchema, ExperienceSchema
+from api.database.models.resume_model import Resume, Education, Experience
+from api.schemas.resume_schema import ResumeSchema, EducationSchema, ExperienceSchema
 from motor.motor_asyncio import AsyncIOMotorClient
 
 router = APIRouter()
 
-# MongoDB connection URI
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 DB_NAME = "local"
 COLLECTION_NAME = "resumes"
 
-# MongoDB client setup
 client = AsyncIOMotorClient(MONGO_URI)
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]

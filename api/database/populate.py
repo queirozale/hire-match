@@ -3,7 +3,7 @@ from faker import Faker
 from datetime import datetime, timedelta
 from mongoengine import connect
 
-from models.resume import Resume
+from api.database.models.resume_model import Resume
 
 
 fake = Faker()

@@ -1,6 +1,6 @@
 from mongoengine import connect
 from datetime import datetime
-from models.resume import Resume, Experience, Education  # Import your model
+from api.database.models.resume_model import Resume, Experience, Education  # Import your model
 
 # Connect to MongoDB (adjust the URI as needed)
 connect('local', host='localhost', port=27017)

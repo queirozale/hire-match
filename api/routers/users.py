@@ -2,8 +2,8 @@ from fastapi import APIRouter, HTTPException
 from pydantic import EmailStr
 from typing import List
 from mongoengine.errors import NotUniqueError
-from schemas.user import UserSchema
-from database.models.user import User
+from api.schemas.user_schema import UserSchema
+from api.database.models.user_model import User
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -33,7 +33,7 @@ def user_helper(user) -> dict:
 async def create_user(user: UserSchema):
     try:
         # Convert Pydantic model to dict for insertion into MongoDB
-        user_dict = user.dict()
+        user_dict = user.model_dump()
         result = await collection.insert_one(user_dict)
         created_user = await collection.find_one({"_id": result.inserted_id})
         return user_helper(created_user)
