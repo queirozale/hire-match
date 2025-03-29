@@ -10,17 +10,13 @@ from pydantic_settings import (
 
 
 class Config(BaseSettings):
+    mongo_uri: SecretStr = Field(
+        default=SecretStr(""),
+        description="Mongo URI",
+    )
     database: SecretStr = Field(
         default=SecretStr(""),
         description="Mongo Database",
-    )
-    users_collection: SecretStr = Field(
-        default=SecretStr(""),
-        description="Users Collection",
-    )
-    resumes_collection: SecretStr = Field(
-        default=SecretStr(""),
-        description="Resumes Collection",
     )
         
     # local_path: str = Field(frozen=True, description="Local FAISS path")

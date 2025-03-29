@@ -24,4 +24,3 @@ class Resume(Document):
     education = ListField(EmbeddedDocumentField(Education))
     certifications = ListField(StringField())
     projects = ListField(StringField())
-    meta = {'collection': 'resumes'}

@@ -6,21 +6,21 @@ class DataBase(ABC):
     Abstract base class for a database interface.
     """
     @abstractmethod
-    def insert_one(self, collection: str, data: Dict[str, Any]) -> Any:
+    def insert_one(self, collection_name: str, data: Dict[str, Any]) -> Any:
         pass
 
     @abstractmethod
-    def find(self, collection: str, query: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def find(self, collection_name: str, query: Dict[str, Any]) -> List[Dict[str, Any]]:
         pass
 
     @abstractmethod
-    def find_one(self, collection: str, query: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def find_one(self, collection_name: str, query: Dict[str, Any]) -> List[Dict[str, Any]]:
         pass
 
     @abstractmethod
-    def update_one(self, collection: str, query: Dict[str, Any], update_data: Dict[str, Any]) -> int:
+    def update_one(self, collection_name: str, query: Dict[str, Any], update_data: Dict[str, Any]) -> int:
         pass
 
     @abstractmethod
-    def delete_one(self, collection: str, query: Dict[str, Any]) -> int:
+    def delete_one(self, collection_name: str, query: Dict[str, Any]) -> int:
         pass

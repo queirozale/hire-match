@@ -12,10 +12,12 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 router = APIRouter()
 
+# MongoDB connection URI
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 DB_NAME = "local"
 COLLECTION_NAME = "resumes"
 
+# MongoDB client setup
 client = AsyncIOMotorClient(MONGO_URI)
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
@@ -107,4 +109,3 @@ async def delete_resume(email: str):
         raise HTTPException(status_code=404, detail="Resume not found")
     
     return {"detail": f"Resume with email {email} has been deleted."}
-
