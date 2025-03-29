@@ -32,21 +32,3 @@ class ResumeSchema(BaseModel):
         json_encoders = {
             ObjectId: str
         }
-
-def resume_helper(resume: ResumeSchema) -> dict:
-    # Map MongoDB document fields to ResumeSchema
-    return {
-        "name": resume["name"],
-        "email": resume["email"],
-        "phone": resume.get("phone"),
-        "summary": resume.get("summary"),
-        "skills": resume.get("skills", []),
-        "experience": [
-            ExperienceSchema(**exp) for exp in resume.get("experience", [])
-        ],
-        "education": [
-            EducationSchema(**edu) for edu in resume.get("education", [])
-        ],
-        "certifications": resume.get("certifications", []),
-        "projects": resume.get("projects", []),
-    }
