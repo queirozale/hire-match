@@ -7,6 +7,8 @@ from api.database.models.user_model import User
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 
+from api.utils.pass_hash import hash_password
+
 router = APIRouter()
 
 # MongoDB connection URI
@@ -34,6 +36,7 @@ async def create_user(user: UserSchema):
     try:
         # Convert Pydantic model to dict for insertion into MongoDB
         user_dict = user.model_dump()
+        user_dict['password'] = hash_password(user_dict['password'])
         result = await collection.insert_one(user_dict)
         created_user = await collection.find_one({"_id": result.inserted_id})
         return user_helper(created_user)

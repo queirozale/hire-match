@@ -23,8 +23,8 @@ class ResumeSchema(BaseModel):
     phone: Optional[str] = None
     summary: Optional[str] = None
     skills: List[str]
-    experience: List[ExperienceSchema]
     education: List[EducationSchema]
+    experience: Optional[List[ExperienceSchema]] = []
     certifications: Optional[List[str]] = []
     projects: Optional[List[str]] = []
 
