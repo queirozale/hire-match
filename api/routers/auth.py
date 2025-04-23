@@ -1,16 +1,19 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
 import os
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 from api.utils.pass_hash import verify_password
 
 load_dotenv()
 
 router = APIRouter()
+templates = Jinja2Templates(directory="api/templates")
 
 # Secret Key for JWT Token
 SECRET_KEY = os.getenv("SECRET_KEY", "your_secret_key")
@@ -36,7 +39,7 @@ def create_access_token(data: dict):
     """Generate a JWT token"""
     return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
 
-@router.post("/login")
+@router.post("/auth")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """User login route"""
     user = await collection.find_one({"email": form_data.username})
@@ -47,3 +50,4 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     token = create_access_token({"sub": user["email"]})
 
     return {"access_token": token, "token_type": "bearer"}
+
