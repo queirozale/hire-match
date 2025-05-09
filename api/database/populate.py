@@ -1,12 +1,9 @@
 import random
-from faker import Faker
 from datetime import datetime, timedelta
 from mongoengine import connect
 
 from api.database.models.resume_model import Resume
 
-
-fake = Faker()
 POP_SIZE = 30
 
 def random_date(start_date: datetime, end_date: datetime):
@@ -14,30 +11,44 @@ def random_date(start_date: datetime, end_date: datetime):
     random_days = random.randint(0, delta.days)
     return start_date + timedelta(days=random_days)
 
+brazilian_names = [
+    "Ana Silva", "João Santos", "Maria Oliveira", "Pedro Souza", "Lucas Pereira",
+    "Julia Costa", "Gabriel Rodrigues", "Beatriz Almeida", "Rafael Carvalho", "Amanda Gomes",
+    "Vinicius Fernandes", "Larissa Martins", "Gustavo Rocha", "Carolina Barbosa", "Thiago Castro",
+    "Isabela Nunes", "Felipe Azevedo", "Renata Correia", "Eduardo Ribeiro", "Camila Lima",
+    "Matheus Santos", "Fernanda Oliveira", "Ricardo Souza", "Patrícia Pereira", "Leonardo Costa",
+    "Juliana Rodrigues", "Marcelo Almeida", "Letícia Carvalho", "Diego Gomes", "Vanessa Fernandes"
+]
 
-companies = ["TechCorp", "DevSolutions", "InnovateTech", "WebLabs", "SoftCo"]
-positions = ["Software Engineer", "Data Scientist", "DevOps Engineer", "Frontend Developer", "Backend Developer"]
+brazilian_phones = ["+55 11 98765-4321", "+55 21 91234-5678", "+55 31 99999-8888", "+55 41 95555-7777", "+55 51 92222-3333"]
+
+companies = ["TechCorp Brasil", "DevSolutions BR", "InovateTech Brasil", "WebLabs Brasil", "SoftCo Brasil"]
+positions = ["Engenheiro(a) de Software", "Cientista de Dados", "Engenheiro(a) DevOps", "Desenvolvedor(a) Frontend", "Desenvolvedor(a) Backend"]
 skills = ["Python", "MongoDB", "Docker", "JavaScript", "AWS", "Kubernetes", "SQL", "Java", "C++", "React"]
 certifications = ["AWS Certified Developer", "Oracle Certified Java Programmer", "Certified Kubernetes Administrator"]
-projects = ["Project A", "Project B", "Project C", "Project D", "Project E"]
+projects = ["Projeto Alfa", "Projeto Beta", "Projeto Gama", "Projeto Delta", "Projeto Épsilon"]
 
+email_counter = 0  # Keep track of generated emails
 
 def create_random_resume():
-    name = fake.name()
-    email = fake.email()
-    phone = fake.phone_number()
-    summary = fake.sentence(nb_words=8)
+    global email_counter  # Access the global counter
+    name = random.choice(brazilian_names)
+    base_email = name.lower().replace(' ', '.')
+    email = f"{base_email}_{email_counter}@email.com"  # Add a unique identifier
+    email_counter += 1
+    phone = random.choice(brazilian_phones)
+    summary = "Resumo profissional genérico."
     experience = [{
         "company": random.choice(companies),
         "position": random.choice(positions),
         "start_date": random_date(datetime(2015, 1, 1), datetime(2020, 1, 1)).strftime("%Y-%m-%d"),
         "end_date": random_date(datetime(2020, 1, 1), datetime(2025, 1, 1)).strftime("%Y-%m-%d"),
-        "description": fake.sentence(nb_words=12)
+        "description": "Descrição genérica da experiência."
     }]
     education = [{
-        "institution": fake.company(),
-        "degree": random.choice(["BSc Computer Science", "BSc Information Technology", "MSc Software Engineering"]),
-        "field_of_study": random.choice(["Computer Science", "Information Technology", "Software Engineering"]),
+        "institution": "Universidade Genérica",
+        "degree": random.choice(["BSc Ciência da Computação", "BSc Tecnologia da Informação", "MSc Engenharia de Software"]),
+        "field_of_study": random.choice(["Ciência da Computação", "Tecnologia da Informação", "Engenharia de Software"]),
         "start_year": random.randint(2005, 2015),
         "end_year": random.randint(2010, 2020)
     }]

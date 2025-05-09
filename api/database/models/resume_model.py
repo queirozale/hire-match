@@ -24,3 +24,11 @@ class Resume(Document):
     education = ListField(EmbeddedDocumentField(Education))
     certifications = ListField(StringField())
     projects = ListField(StringField())
+
+    meta = {'collection': 'resumes'}
+
+class Position(Document):
+    title = StringField(required=True)
+    company = StringField(required=True)
+    location = StringField()
+    description = StringField()

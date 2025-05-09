@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro do Candidato</title>
+    <meta charset="UTF-8">
+    <title>Job Opportunities</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -48,7 +47,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 40px auto;
             background: #1E293B;
             border-radius: 16px;
@@ -56,32 +55,29 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        h2,
-        h4 {
-            text-align: center;
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0 30px;
         }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+        .filter-bar input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
             border-radius: 8px;
             border: none;
             background: #334155;
             color: #F8FAFC;
-            font-size: 16px;
         }
 
-        button {
+        .filter-bar button {
             padding: 12px 20px;
             font-size: 16px;
             background-color: #3B82F6;
@@ -92,27 +88,39 @@
             transition: background-color 0.2s ease;
         }
 
-        button:hover {
+        .filter-bar button:hover {
             background-color: #2563EB;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #3B82F6;
-            color: #3B82F6;
-        }
-
-        .btn-outline:hover {
-            background: #1D4ED8;
-            color: #F8FAFC;
-        }
-
-        .button-group {
+        .job-item {
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 30px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-item .title-company-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .job-item .title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .job-item .company {
+            font-size: 18px;
+            color: #94A3B8;
+        }
+
+        #total-count {
+            font-weight: bold;
         }
 
         /* Footer */
@@ -133,6 +141,15 @@
         .btn-primary:hover {
             background-color: #2563EB;
             border-color: #2563EB;
+        }
+
+        .job-link {
+            color: #60A5FA;
+            text-decoration: none;
+        }
+
+        .job-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -173,33 +190,42 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <h2>Cadastro de Candidato</h2>
-            <form id="candidate-form">
-                <label>Nome Completo</label>
-                <input type="text" name="name" required>
+            <h1>Vagas de Emprego</h1>
+            <h2>Engenharia de Software e Dados</h2>
+            <p style="font-size: 18px;">Total de vagas: <span id="total-count">3</span></p>
 
-                <label>E-mail</label>
-                <input type="email" name="email" required>
+            <div class="filter-bar">
+                <input type="text" id="search-input" placeholder="Pesquisar por título ou empresa" />
+                <button onclick="searchJobs()">Pesquisar</button>
+                <button onclick="resetSearch()">Limpar</button>
+            </div>
 
-                <label>Telefone</label>
-                <input type="tel" name="phone" required>
-
-                <label>Resumo Profissional</label>
-                <textarea name="summary" rows="4"></textarea>
-
-                <h4>Adicione suas informações:</h4>
-                <div class="button-group">
-                    <button type="button" class="btn-outline">Habilidades</button>
-                    <button type="button" class="btn-outline">Experiências</button>
-                    <button type="button" class="btn-outline">Educação</button>
-                    <button type="button" class="btn-outline">Certificados</button>
-                    <button type="button" class="btn-outline">Projetos</button>
+            <div id="jobs-container">
+                <!-- Static Job Listings -->
+                <div class="job-item">
+                    <div class="title-company-container">
+                        <div class="title">Software Engineer</div>
+                        <div class="company">Google</div>
+                    </div>
+                    <a href="#" class="job-link">Ver Vaga</a>
                 </div>
 
-                <div style="text-align: center;">
-                    <button type="submit">Finalizar Cadastro</button>
+                <div class="job-item">
+                    <div class="title-company-container">
+                        <div class="title">Data Scientist</div>
+                        <div class="company">Microsoft</div>
+                    </div>
+                    <a href="#" class="job-link">Ver Vaga</a>
                 </div>
-            </form>
+
+                <div class="job-item">
+                    <div class="title-company-container">
+                        <div class="title">Frontend Developer</div>
+                        <div class="company">Facebook</div>
+                    </div>
+                    <a href="#" class="job-link">Ver Vaga</a>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -210,44 +236,35 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('candidate-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
+        function searchJobs() {
+            const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+            const jobItems = document.querySelectorAll('.job-item');
 
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                cpf: formData.get('cpf'),
-                summary: formData.get('summary'),
-                skills: [],
-                experience: [],
-                education: [],
-                certificates: [],
-                projects: []
-            };
+            jobItems.forEach(jobItem => {
+                const title = jobItem.querySelector('.title').textContent.toLowerCase();
+                const company = jobItem.querySelector('.company').textContent.toLowerCase();
 
-            try {
-                const response = await fetch('/resumes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    alert(`Erro ao cadastrar: ${error.detail}`);
-                    return;
+                if (title.includes(searchTerm) || company.includes(searchTerm)) {
+                    jobItem.style.display = 'flex';
+                } else {
+                    jobItem.style.display = 'none';
                 }
+            });
+        }
 
-                // Redirect to /jobs after successful submission
-                window.location.href = '/jobs';
+        function resetSearch() {
+            document.getElementById('search-input').value = '';
+            const jobItems = document.querySelectorAll('.job-item');
+            jobItems.forEach(jobItem => {
+                jobItem.style.display = 'flex';
+            });
+        }
 
-            } catch (err) {
-                alert('Erro inesperado ao cadastrar.');
-                console.error(err);
+        // Trigger search on Enter key
+        document.getElementById("search-input").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchJobs();
             }
         });
     </script>

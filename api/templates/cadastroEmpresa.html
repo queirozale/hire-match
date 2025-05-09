@@ -1,139 +1,317 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro da Empresa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100" style="background-color: #03254c;">
-   
-    <!-- Início NavBar -->
-    <nav class="navbar navbar-expand-lg" style="background-color: #4A90E2;"> 
-        
-        <div class="container-fluid">
-          <a class="navbar-brand text-white" href="index.html" style="margin-left: 30px">
-            <img src="img/HireUp.png" alt="Logo" width="104" height="40" class="d-inline-block align-text-top"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
 
-            <div class="d-flex" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a href="login.html">
-                        <button type="button" class="btn btn-sm border-white text-white" style="background-color: #4A90E2;">
-                            Login
-                        </button></a>
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro da Empresa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #0B1120;
+            font-family: 'Inter', sans-serif;
+            color: #F1F5F9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #1E293B;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #F1F5F9;
+            font-size: 16px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #A5B4FC;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #1E293B;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #334155;
+            border: none;
+            border-radius: 8px;
+            color: #F1F5F9;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #2563EB;
+        }
+
+        .btn-outline {
+            background: none;
+            border: 2px solid #3B82F6;
+            color: #3B82F6;
+        }
+
+        .btn-outline:hover {
+            background-color: #1E40AF;
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .modal {
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1E293B;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            color: #F1F5F9;
+        }
+
+        .modal-content input {
+            margin-top: 10px;
+        }
+
+        .list-group {
+            margin-top: 16px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-group li {
+            background: #0F172A;
+            border: 1px solid #334155;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .list-group button {
+            background: none;
+            border: none;
+            color: #EF4444;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background-color: #1E293B;
+            padding: 20px 0;
+            color: #F1F5F9;
+            margin-top: 60px;
+        }
+
+        .btn-primary {
+            background-color: #4A90E2;
+            border-color: #4A90E2;
+            color: #F1F5F9;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563EB;
+            border-color: #2563EB;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="/">
+                <img src="/static/img/HireUp.png" alt="Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" href="form">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" href="signup">Cadastre-se</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login">
+                            <button type="button" class="btn btn-primary">
+                                Login
+                            </button>
+                        </a>
                     </li>
                 </ul>
             </div>
-            
-            
-          </div>
         </div>
-      </nav>
+    </nav>
 
-    <!-- Corpo do site -->
-    <main class="container text-white flex-grow-1 py-5">
-        <h2 class="text-center">Cadastro da Empresa</h2>
-        <form class="mt-4">
-            <div class="mb-3">
-                <label class="form-label">Nome da Empresa</label>
-                <input type="text" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">CNPJ</label>
-                <input type="text" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Endereço</label>
-                <input type="text" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">E-mail Corporativo</label>
-                <input type="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Telefone</label>
-                <input type="tel" class="form-control" required>
-            </div>
-            <h4 class="mt-4">Adicione informações sobre sua empresa:</h4>
-            <div class="d-grid gap-3 mt-3">
-                <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#beneficiosModal">Benefícios</button>
-                <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#areasModal">Áreas de Contratação</button>
-                <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#diferenciaisModal">Diferenciais</button>
-            </div>
-            <div class="mt-4 text-center">
-                <button type="submit" class="btn btn-primary">Finalizar Cadastro</button>
-            </div>
-        </form>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>Cadastro da Empresa</h1>
+            <form>
+                <label>Nome da Empresa</label>
+                <input type="text" required>
+
+                <label>E-mail Corporativo</label>
+                <input type="email" required>
+
+                <label>Telefone</label>
+                <input type="tel" required>
+
+                <div class="section-title">Informações Adicionais</div>
+                <button type="button" class="btn btn-outline" onclick="openModal('beneficios')">Benefícios</button>
+                <button type="button" class="btn btn-outline" onclick="openModal('areas')">Áreas de Contratação</button>
+                <button type="button" class="btn btn-outline" onclick="openModal('diferenciais')">Diferenciais</button>
+
+                <div class="text-center" style="margin-top: 30px;">
+                    <button type="submit" class="btn">Finalizar Cadastro</button>
+                </div>
+            </form>
+        </div>
     </main>
 
-    <footer class="text-white text-center py-3 mt-auto w-100" style="background-color: #4A90E2;">
-        <p class="mb-0">© 2025 HireUp. Todos os direitos reservados.</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 HireUp. Todos os direitos reservados.</p>
     </footer>
 
     <div id="modals-container"></div>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const modalData = [
             { id: 'beneficios', title: 'Adicionar Benefício' },
             { id: 'areas', title: 'Adicionar Área de Contratação' },
             { id: 'diferenciais', title: 'Adicionar Diferencial' }
         ];
-    
+
         const container = document.getElementById('modals-container');
-    
+
         modalData.forEach(data => {
             const modalHTML = `
-                <div class="modal fade" id="${data.id}Modal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">${data.title}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="text" class="form-control" id="${data.id}Input" placeholder="Digite sua informação">
-                                <ul class="mt-3 list-group" id="${data.id}List"></ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" onclick="clearList('${data.id}')">Limpar Tudo</button>
-                                <button type="button" class="btn btn-primary" onclick="addInfo('${data.id}')">Salvar</button>
-                            </div>
+                <div class="modal" id="${data.id}Modal">
+                    <div class="modal-content">
+                        <h3>${data.title}</h3>
+                        <input type="text" id="${data.id}Input" placeholder="Digite sua informação">
+                        <ul class="list-group" id="${data.id}List"></ul>
+                        <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                            <button class="btn btn-outline" onclick="clearList('${data.id}')">Limpar Tudo</button>
+                            <button class="btn" onclick="addInfo('${data.id}')">Salvar</button>
+                            <button class="btn" onclick="closeModal('${data.id}')">Fechar</button>
                         </div>
                     </div>
                 </div>
             `;
             container.innerHTML += modalHTML;
         });
-    
+
+        function openModal(modalId) {
+            document.getElementById(`${modalId}Modal`).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(`${modalId}Modal`).classList.remove('active');
+        }
+
         function addInfo(modalId) {
             const input = document.getElementById(`${modalId}Input`);
             const list = document.getElementById(`${modalId}List`);
-    
+
             if (input.value.trim() !== "") {
                 const listItem = document.createElement("li");
-                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
                 listItem.innerHTML = `
                     ${input.value}
-                    <button class="btn btn-sm btn-danger" onclick="removeInfo(this)">Remover</button>
+                    <button onclick="removeInfo(this)">Remover</button>
                 `;
                 list.appendChild(listItem);
                 input.value = "";
             }
         }
-    
+
         function removeInfo(button) {
             button.parentElement.remove();
         }
-    
+
         function clearList(modalId) {
             document.getElementById(`${modalId}List`).innerHTML = "";
         }
     </script>
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

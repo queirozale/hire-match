@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro do Candidato</title>
+    <meta charset="UTF-8">
+    <title>Resumes</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -48,7 +47,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 40px auto;
             background: #1E293B;
             border-radius: 16px;
@@ -56,32 +55,29 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        h2,
-        h4 {
-            text-align: center;
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0 30px;
         }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+        .filter-bar input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
             border-radius: 8px;
             border: none;
             background: #334155;
             color: #F8FAFC;
-            font-size: 16px;
         }
 
-        button {
+        .filter-bar button {
             padding: 12px 20px;
             font-size: 16px;
             background-color: #3B82F6;
@@ -92,27 +88,39 @@
             transition: background-color 0.2s ease;
         }
 
-        button:hover {
+        .filter-bar button:hover {
             background-color: #2563EB;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #3B82F6;
-            color: #3B82F6;
-        }
-
-        .btn-outline:hover {
-            background: #1D4ED8;
-            color: #F8FAFC;
-        }
-
-        .button-group {
+        .resume-item {
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 30px;
+            justify-content: space-between; /* Changed to space-between */
+            align-items: center;
+        }
+
+        .resume-item .name-phone-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .resume-item .name {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .resume-item .phone {
+            font-size: 18px;
+            color: #94A3B8;
+        }
+
+        #total-count {
+            font-weight: bold;
         }
 
         /* Footer */
@@ -133,6 +141,15 @@
         .btn-primary:hover {
             background-color: #2563EB;
             border-color: #2563EB;
+        }
+
+        .resume-link {
+            color: #60A5FA;
+            text-decoration: none;
+        }
+
+        .resume-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -173,33 +190,17 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <h2>Cadastro de Candidato</h2>
-            <form id="candidate-form">
-                <label>Nome Completo</label>
-                <input type="text" name="name" required>
+            <h1>Analisar Candidatos</h1>
+            <h2>Software Engineer</h2>
+            <p style="font-size: 18px;">Total de candidatos: <span id="total-count">0</span></p>
 
-                <label>E-mail</label>
-                <input type="email" name="email" required>
+            <div class="filter-bar">
+                <input type="text" id="skill-input" placeholder="Filtrar por skill ex: Python" />
+                <button onclick="filterBySkill()">Filtrar</button>
+                <button onclick="fetchResumes()">Limpar filtro</button>
+            </div>
 
-                <label>Telefone</label>
-                <input type="tel" name="phone" required>
-
-                <label>Resumo Profissional</label>
-                <textarea name="summary" rows="4"></textarea>
-
-                <h4>Adicione suas informações:</h4>
-                <div class="button-group">
-                    <button type="button" class="btn-outline">Habilidades</button>
-                    <button type="button" class="btn-outline">Experiências</button>
-                    <button type="button" class="btn-outline">Educação</button>
-                    <button type="button" class="btn-outline">Certificados</button>
-                    <button type="button" class="btn-outline">Projetos</button>
-                </div>
-
-                <div style="text-align: center;">
-                    <button type="submit">Finalizar Cadastro</button>
-                </div>
-            </form>
+            <div id="resumes-container"></div>
         </div>
     </main>
 
@@ -210,46 +211,50 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('candidate-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
+        async function fetchResumes(skill = "") {
+            let url = '/resumes';
+            if (skill) {
+                url += `?skill=${encodeURIComponent(skill)}`;
+            }
 
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                cpf: formData.get('cpf'),
-                summary: formData.get('summary'),
-                skills: [],
-                experience: [],
-                education: [],
-                certificates: [],
-                projects: []
-            };
+            const response = await fetch(url);
+            const data = await response.json();
 
-            try {
-                const response = await fetch('/resumes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
+            const container = document.getElementById('resumes-container');
+            const totalCount = document.getElementById('total-count');
 
-                if (!response.ok) {
-                    const error = await response.json();
-                    alert(`Erro ao cadastrar: ${error.detail}`);
-                    return;
-                }
+            container.innerHTML = "";
+            totalCount.textContent = data.length;
 
-                // Redirect to /jobs after successful submission
-                window.location.href = '/jobs';
+            data.forEach(resume => {
+                const div = document.createElement('div');
+                div.className = 'resume-item';
+                div.innerHTML = `
+                    <div class="name-phone-container">
+                        <div class="name">${resume.name}</div>
+                        <div class="phone">${resume.phone || '(sem telefone)'}</div>
+                    </div>
+                    <a href="/profile-candidate?email=${resume.email}" class="resume-link">Currículo</a>
+                `;
+                container.appendChild(div);
+            });
+        }
 
-            } catch (err) {
-                alert('Erro inesperado ao cadastrar.');
-                console.error(err);
+        function filterBySkill() {
+            const skill = document.getElementById('skill-input').value.trim();
+            fetchResumes(skill);
+        }
+
+        // Trigger filter on Enter key
+        document.getElementById("skill-input").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                filterBySkill();
             }
         });
+
+        // Initial load
+        fetchResumes();
     </script>
 </body>
 

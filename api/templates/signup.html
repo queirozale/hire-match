@@ -2,9 +2,9 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro do Candidato</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Hire Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -44,23 +44,24 @@
         /* Main Content */
         main {
             flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 500px;
             background: #1E293B;
             border-radius: 16px;
             padding: 40px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        h2,
-        h4 {
+        h1 {
+            font-size: 28px;
             text-align: center;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         label {
@@ -69,21 +70,33 @@
             font-weight: 600;
         }
 
-        input,
-        textarea {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
             width: 100%;
-            padding: 12px;
+            padding: 12px 16px;
+            font-size: 16px;
             margin-bottom: 20px;
             border-radius: 8px;
             border: none;
             background: #334155;
             color: #F8FAFC;
+        }
+
+        .toggle-password {
+            cursor: pointer;
             font-size: 16px;
+            float: right;
+            margin-top: -36px;
+            margin-right: 10px;
         }
 
         button {
-            padding: 12px 20px;
+            width: 100%;
+            padding: 12px;
             font-size: 16px;
+            font-weight: 600;
             background-color: #3B82F6;
             color: white;
             border: none;
@@ -96,32 +109,19 @@
             background-color: #2563EB;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #3B82F6;
-            color: #3B82F6;
-        }
-
-        .btn-outline:hover {
-            background: #1D4ED8;
-            color: #F8FAFC;
-        }
-
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        /* Footer */
-        footer {
+        .links {
             text-align: center;
-            background-color: #1E293B;
-            padding: 20px 0;
-            color: #F1F5F9;
-            margin-top: 60px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #60A5FA;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
         }
 
         .btn-primary {
@@ -133,6 +133,15 @@
         .btn-primary:hover {
             background-color: #2563EB;
             border-color: #2563EB;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background-color: #1E293B;
+            padding: 20px 0;
+            color: #F1F5F9;
+            margin-top: 60px;
         }
     </style>
 </head>
@@ -173,81 +182,87 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <h2>Cadastro de Candidato</h2>
-            <form id="candidate-form">
-                <label>Nome Completo</label>
-                <input type="text" name="name" required>
+            <h1>Sign Up</h1>
+            <form id="signup-form">
+                <label for="name">Nome</label>
+                <input type="text" id="name" required placeholder="Enter your name" />
 
-                <label>E-mail</label>
-                <input type="email" name="email" required>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" required placeholder="Enter your e-mail" />
 
-                <label>Telefone</label>
-                <input type="tel" name="phone" required>
+                <label for="password">Senha</label>
+                <input type="password" id="password" required placeholder="Enter your password" />
+                <div class="toggle-password" id="togglePassword">👁️</div>
 
-                <label>Resumo Profissional</label>
-                <textarea name="summary" rows="4"></textarea>
+                <label for="confirm-password">Confirmar Senha</label>
+                <input type="password" id="confirm-password" required placeholder="Confirm your password" />
 
-                <h4>Adicione suas informações:</h4>
-                <div class="button-group">
-                    <button type="button" class="btn-outline">Habilidades</button>
-                    <button type="button" class="btn-outline">Experiências</button>
-                    <button type="button" class="btn-outline">Educação</button>
-                    <button type="button" class="btn-outline">Certificados</button>
-                    <button type="button" class="btn-outline">Projetos</button>
-                </div>
+                <label for="category">Categoria</label>
+                <select id="category" required>
+                    <option value="candidate">Candidato</option>
+                    <option value="recruiter">Recrutador</option>
+                </select>
 
-                <div style="text-align: center;">
-                    <button type="submit">Finalizar Cadastro</button>
-                </div>
+                <button type="submit">Cadastrar</button>
             </form>
+
+            <div class="links">
+                <p>Já tem uma conta? <a href="login">Login</a></p>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2025 HireUp. Todos os direitos reservados.</p>
+        <p class="mb-0">© 2025 HireUp. Todos os direitos reservados.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('candidate-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        });
 
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                cpf: formData.get('cpf'),
-                summary: formData.get('summary'),
-                skills: [],
-                experience: [],
-                education: [],
-                certificates: [],
-                projects: []
+        document.getElementById('signup-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const category = document.getElementById('category').value; // Get the selected category
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // Prepare the data to send to the server
+            const userData = {
+                email: email,
+                password: password,
+                category: category // Use the selected category
             };
 
             try {
-                const response = await fetch('/resumes', {
+                const response = await fetch('/users', { // Use the root endpoint "/"
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(userData)
                 });
 
                 if (!response.ok) {
-                    const error = await response.json();
-                    alert(`Erro ao cadastrar: ${error.detail}`);
+                    const errorData = await response.json();
+                    alert(`Signup failed: ${errorData.detail || 'Unknown error'}`);
                     return;
                 }
 
-                // Redirect to /jobs after successful submission
-                window.location.href = '/jobs';
-
+                alert('Signup successful!');
+                window.location.href = '/login';
             } catch (err) {
-                alert('Erro inesperado ao cadastrar.');
-                console.error(err);
+                alert(`Error during signup: ${err.message || 'Unknown error'}`);
             }
         });
     </script>

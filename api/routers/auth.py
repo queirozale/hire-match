@@ -39,7 +39,7 @@ def create_access_token(data: dict):
     """Generate a JWT token"""
     return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
 
-@router.post("/auth")
+@router.post("/")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """User login route"""
     user = await collection.find_one({"email": form_data.username})
